@@ -7,7 +7,7 @@ Use this before creating the public GitHub repository or publishing to npm. For 
 - [x] Choose and add a project license. This project uses MIT.
 - [x] Decide the public GitHub repository URL and add it to `package.json` metadata.
 - [x] Decide the public support/contact path for `SECURITY.md`.
-- [ ] Confirm the npm package name `a2a-mcp` is still available.
+- [x] Confirm the npm package name `a2a-mcp` is still available.
 - [ ] Configure npm Trusted Publishing for `.github/workflows/release.yml`.
 
 ## Local checks
@@ -23,6 +23,10 @@ npm publish --dry-run
 - [ ] Confirm no `.env`, `.DS_Store`, `*.swp`, `reports/`, or local agent configs are committed.
 - [ ] Confirm `configs/stock-guru.codex.yaml` and `scripts/run-stock-guru-codex.sh` remain local-only or are replaced by sanitized examples.
 - [ ] Confirm generated `dist/` is not committed unless the release policy intentionally tracks build artifacts.
+- [x] Public repository created at `https://github.com/CognicellAI/a2a-mcp`.
+- [x] GitHub Actions enabled and conformance workflow passing.
+- [x] `main` branch protected with required conformance checks.
+- [x] GitHub private vulnerability reporting enabled.
 
 ## Release flow
 

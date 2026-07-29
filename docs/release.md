@@ -63,8 +63,12 @@ npm publish --dry-run
 - [ ] Push the repository to GitHub.
 - [ ] Enable GitHub Actions for the repository.
 - [ ] Protect the `main` branch.
+- [x] Public repository created at `https://github.com/CognicellAI/a2a-mcp`.
+- [x] GitHub Actions enabled and conformance workflow passing.
+- [x] `main` branch protected with required conformance checks.
+- [x] GitHub private vulnerability reporting enabled.
 - [ ] Configure npm Trusted Publishing for workflow filename `release.yml`.
-- [ ] Confirm the package name `a2a-mcp` is still available.
+- [x] Confirm the package name `a2a-mcp` is still available.
 
 ### 5. Create the release
 
