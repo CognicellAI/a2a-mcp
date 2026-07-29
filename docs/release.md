@@ -41,7 +41,7 @@ Use this checklist exactly for the initial release.
 - [x] Add `bugs.url` and `homepage` to `package.json`.
 - [ ] Confirm `LICENSE` is present and package license is `MIT`.
 - [x] Replace the placeholder contact path in `SECURITY.md`.
-- [ ] Remove the temporary README note that says `npm view @cognicellai/a2a-mcp` returns 404 after the package is published.
+- [x] Remove temporary pre-publication npm availability notes from user-facing docs.
 
 ### 2. Hygiene
 

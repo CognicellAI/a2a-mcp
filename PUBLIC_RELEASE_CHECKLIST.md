@@ -39,4 +39,4 @@ git tag -a v0.1.0 -m "Release v0.1.0"
 git push origin v0.1.0
 ```
 
-Pushing the tag runs the release workflow. After publishing, update `README.md` if the note about `npm view @cognicellai/a2a-mcp` returning 404 is no longer true.
+Pushing the tag runs the release workflow.
