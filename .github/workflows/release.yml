@@ -78,7 +78,7 @@ jobs:
         shell: bash
         run: |
           npm pack --json --silent > pack.json
-          tarball="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('pack.json', 'utf8'))[0].filename)")"
+          tarball="$(node -e "const pack = JSON.parse(require('fs').readFileSync('pack.json', 'utf8')); const entry = Array.isArray(pack) ? pack[0] : pack; if (!entry?.filename) throw new Error('npm pack JSON did not include filename'); process.stdout.write(entry.filename)")"
           echo "tarball=${tarball}" >> "${GITHUB_OUTPUT}"
 
       - name: Check whether npm version already exists
