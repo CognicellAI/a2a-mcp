@@ -1,0 +1,71 @@
+{
+  "name": "a2a-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that acts as an A2A v1 client bridge.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CognicellAI/a2a-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CognicellAI/a2a-mcp/issues"
+  },
+  "homepage": "https://github.com/CognicellAI/a2a-mcp#readme",
+  "keywords": [
+    "a2a",
+    "mcp",
+    "model-context-protocol",
+    "agent-to-agent",
+    "json-rpc",
+    "oauth2"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "a2a-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "scripts/make-bin-executable.mjs",
+    "scripts/check-release-tag.mjs",
+    "a2a-mcp.config.example.yaml",
+    "docs/DESIGN.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "npm run typecheck && npm run build && npm test && npm run lint:docs",
+    "dev": "tsx src/index.ts",
+    "postbuild": "node scripts/make-bin-executable.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run check",
+    "release:check": "npm run check && npm pack --dry-run",
+    "release:verify-tag": "node scripts/check-release-tag.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.test.json --noEmit",
+    "lint:docs": "markdownlint \"*.md\" \"docs/**/*.md\" \".github/**/*.md\" --disable MD013 MD033"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.0.0",
+    "@bufbuild/protobuf": "^2.10.2",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "markdownlint-cli": "^0.49.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

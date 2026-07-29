@@ -1,0 +1,12 @@
+dist/
+node_modules/
+.idea/
+.vscode/
+.env
+.env.*
+*.log
+reports/
+a2a-mcp-*.tgz
+.DS_Store
+*.swp
+*~

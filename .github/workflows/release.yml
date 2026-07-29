@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing SemVer tag to validate and publish, for example v0.1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish npm package and GitHub release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+
+      - name: Resolve release tag
+        id: release
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            tag="${{ inputs.tag }}"
+          else
+            tag="${GITHUB_REF_NAME}"
+          fi
+
+          echo "tag=${tag}" >> "${GITHUB_OUTPUT}"
+
+          version="${tag#v}"
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${version}" == *-* ]]; then
+            echo "npm_tag=next" >> "${GITHUB_OUTPUT}"
+            echo "github_release_flags=--prerelease" >> "${GITHUB_OUTPUT}"
+          else
+            echo "npm_tag=latest" >> "${GITHUB_OUTPUT}"
+            echo "github_release_flags=" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - run: npm ci
+
+      - name: Verify SemVer tag matches package version
+        run: npm run release:verify-tag -- "${{ steps.release.outputs.tag }}"
+
+      - run: npm run check
+
+      - run: npm audit --omit=dev
+
+      - name: Pack release tarball
+        id: pack
+        shell: bash
+        run: |
+          npm pack --json --silent > pack.json
+          tarball="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('pack.json', 'utf8'))[0].filename)")"
+          echo "tarball=${tarball}" >> "${GITHUB_OUTPUT}"
+
+      - name: Publish to npm
+        run: npm publish "${{ steps.pack.outputs.tarball }}" --access public --tag "${{ steps.release.outputs.npm_tag }}"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "${{ steps.release.outputs.tag }}" \
+            "${{ steps.pack.outputs.tarball }}" \
+            --title "${{ steps.release.outputs.tag }}" \
+            --generate-notes \
+            ${{ steps.release.outputs.github_release_flags }}

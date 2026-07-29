@@ -1,0 +1,29 @@
+agents:
+  research:
+    cardUrl: "https://agent.example.com/.well-known/agent-card.json"
+    allowedBindings: ["JSONRPC", "HTTP+JSON"]
+    authProfile: "research-prod"
+    # Conservative default: unsigned cards pass; signed cards fail until
+    # signature verification is configured. Use "disabled" only for trusted dev.
+    signaturePolicy: "ifPresent"
+    directUrlPolicy: "disabled"
+
+authProfiles:
+  research-prod:
+    type: "bearer-env"
+    env: "A2A_RESEARCH_TOKEN"
+  # Example machine-to-machine OAuth profile:
+  # research-m2m:
+  #   type: "oauth-client-credentials-env"
+  #   tokenUrl: "https://auth.example.com/oauth/token"
+  #   clientIdEnv: "A2A_RESEARCH_CLIENT_ID"
+  #   clientSecretEnv: "A2A_RESEARCH_CLIENT_SECRET"
+  #   scope: "a2a:send a2a:read"
+  #   audience: "https://agent.example.com"
+  #   authMethod: "client_secret_basic"
+
+network:
+  allowPrivateAddresses: false
+  requireHttps: true
+  timeoutMs: 30000
+  maxResponseBytes: 10485760
