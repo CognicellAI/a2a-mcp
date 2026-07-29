@@ -35,6 +35,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
 
+      - name: Ensure trusted-publishing capable npm
+        run: npm install -g npm@latest
+
       - name: Resolve release tag
         id: release
         shell: bash
@@ -90,7 +93,7 @@ jobs:
 
       - name: Publish to npm
         if: steps.npm_version.outputs.exists == 'false'
-        run: npm publish "${{ steps.pack.outputs.tarball }}" --access public --tag "${{ steps.release.outputs.npm_tag }}"
+        run: npm publish "${{ steps.pack.outputs.tarball }}" --access public --tag "${{ steps.release.outputs.npm_tag }}" --provenance
 
       - name: Create GitHub release
         env:
