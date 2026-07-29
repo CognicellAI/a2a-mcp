@@ -6,7 +6,7 @@ For a fuller walkthrough with no-auth, API-key, and machine-to-machine OAuth exa
 
 ## 1. Install the server from npm
 
-After the package is published, install `@cognicellai/a2a-mcp` from the official npm registry:
+Install `@cognicellai/a2a-mcp` from the official npm registry:
 
 ```bash
 npm install -g @cognicellai/a2a-mcp
@@ -18,7 +18,7 @@ You can also let the MCP host run the package through `npx`:
 npx -y @cognicellai/a2a-mcp
 ```
 
-Note: the package name is declared by this project metadata, but `npm view @cognicellai/a2a-mcp` currently returns 404 until publication. The examples below show the intended official npm package usage. The installed CLI command is still `a2a-mcp`.
+The installed CLI command is `a2a-mcp`.
 
 ## 2. Create a config file
 

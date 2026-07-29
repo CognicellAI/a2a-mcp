@@ -14,7 +14,7 @@ This guide shows how to run `@cognicellai/a2a-mcp` as a local stdio MCP server a
 - At least one A2A v1-compatible agent with an Agent Card URL.
 - `@cognicellai/a2a-mcp` installed from the official npm registry, or run through `npx`.
 
-After publication, install the package globally:
+Install the package globally:
 
 ```bash
 npm install -g @cognicellai/a2a-mcp
@@ -26,7 +26,7 @@ Or run it without a global install:
 npx -y @cognicellai/a2a-mcp
 ```
 
-Note: `npm view @cognicellai/a2a-mcp` currently returns 404 until the package is published. The commands in this guide describe the intended package-based usage from the official npm registry. The installed CLI command is still `a2a-mcp`.
+The installed CLI command is `a2a-mcp`.
 
 Start it manually once to catch configuration errors early:
 
