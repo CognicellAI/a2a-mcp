@@ -26,7 +26,9 @@ Configure the package on npm with:
 - Workflow filename: `release.yml`
 - Allowed action: `npm publish`
 
-The release workflow uses Node 24 because npm Trusted Publishing requires a modern Node/npm toolchain. It grants `id-token: write` for OIDC and `contents: write` to create the GitHub release.
+The release workflow uses Node 24 because npm Trusted Publishing requires a modern Node/npm toolchain. It also installs the latest npm CLI before publishing, grants `id-token: write` for OIDC, and grants `contents: write` to create the GitHub release.
+
+The workflow publishes with provenance enabled. This is set both in `publishConfig.provenance` and on the `npm publish --provenance` command so npm emits package provenance attestations during trusted publishing.
 
 Important: npm Trusted Publishing requires `package.json` repository metadata to match the GitHub repository. Add `repository`, `bugs`, and `homepage` before the first trusted-publishing release.
 

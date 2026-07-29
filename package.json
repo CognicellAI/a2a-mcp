@@ -21,7 +21,8 @@
     "oauth2"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "bin": {
     "a2a-mcp": "dist/index.js"
