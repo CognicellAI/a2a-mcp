@@ -58,6 +58,9 @@ jobs:
             echo "github_release_flags=" >> "${GITHUB_OUTPUT}"
           fi
 
+          package_name="$(node -p "require('./package.json').name")"
+          echo "package_name=${package_name}" >> "${GITHUB_OUTPUT}"
+
       - run: npm ci
 
       - name: Verify SemVer tag matches package version
@@ -75,7 +78,18 @@ jobs:
           tarball="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('pack.json', 'utf8'))[0].filename)")"
           echo "tarball=${tarball}" >> "${GITHUB_OUTPUT}"
 
+      - name: Check whether npm version already exists
+        id: npm_version
+        shell: bash
+        run: |
+          if npm view "${{ steps.release.outputs.package_name }}@${{ steps.release.outputs.version }}" version >/dev/null 2>&1; then
+            echo "exists=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "exists=false" >> "${GITHUB_OUTPUT}"
+          fi
+
       - name: Publish to npm
+        if: steps.npm_version.outputs.exists == 'false'
         run: npm publish "${{ steps.pack.outputs.tarball }}" --access public --tag "${{ steps.release.outputs.npm_tag }}"
 
       - name: Create GitHub release

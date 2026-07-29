@@ -41,7 +41,7 @@ Use this checklist exactly for the initial release.
 - [x] Add `bugs.url` and `homepage` to `package.json`.
 - [ ] Confirm `LICENSE` is present and package license is `MIT`.
 - [x] Replace the placeholder contact path in `SECURITY.md`.
-- [ ] Remove the temporary README note that says `npm view a2a-mcp` returns 404 after the package is published.
+- [ ] Remove the temporary README note that says `npm view @cognicellai/a2a-mcp` returns 404 after the package is published.
 
 ### 2. Hygiene
 
@@ -68,7 +68,8 @@ npm publish --dry-run
 - [x] `main` branch protected with required conformance checks.
 - [x] GitHub private vulnerability reporting enabled.
 - [ ] Configure npm Trusted Publishing for workflow filename `release.yml`.
-- [x] Confirm the package name `a2a-mcp` is still available.
+- [x] Confirm the package name `@cognicellai/a2a-mcp` is still available.
+- [x] Confirm npm user `hhaggerty` is an owner of the `cognicellai` npm org.
 
 ### 5. Create the release
 
@@ -85,9 +86,9 @@ The tag push starts `.github/workflows/release.yml`, which publishes to npm and 
 ### 6. Post-release verification
 
 ```bash
-npm view a2a-mcp@0.1.0 version
-npm view a2a-mcp dist-tags
-npx -y a2a-mcp --help
+npm view @cognicellai/a2a-mcp@0.1.0 version
+npm view @cognicellai/a2a-mcp dist-tags
+npx -y @cognicellai/a2a-mcp --help
 ```
 
 Then verify the GitHub release exists and includes the npm tarball artifact.
