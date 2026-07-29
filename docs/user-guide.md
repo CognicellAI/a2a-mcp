@@ -1,37 +1,37 @@
 # A2A MCP User Guide
 
-This guide shows how to run `a2a-mcp` as a local stdio MCP server and connect MCP hosts such as Codex, Claude Code, OpenCode, and Cursor to A2A-compatible agents.
+This guide shows how to run `@cognicellai/a2a-mcp` as a local stdio MCP server and connect MCP hosts such as Codex, Claude Code, OpenCode, and Cursor to A2A-compatible agents.
 
-`a2a-mcp` is an MCP-to-A2A bridge:
+`@cognicellai/a2a-mcp` is an MCP-to-A2A bridge:
 
-- Your MCP host talks to `a2a-mcp` over local stdio.
-- `a2a-mcp` talks to configured A2A agents over A2A v1 JSON-RPC or HTTP+JSON.
+- Your MCP host talks to the local `a2a-mcp` CLI over stdio.
+- The bridge talks to configured A2A agents over A2A v1 JSON-RPC or HTTP+JSON.
 - A2A credentials stay in environment variables owned by the local machine or host secret store.
 
 ## Prerequisites
 
 - Node.js 20 or newer.
 - At least one A2A v1-compatible agent with an Agent Card URL.
-- `a2a-mcp` installed from the official npm registry, or run through `npx`.
+- `@cognicellai/a2a-mcp` installed from the official npm registry, or run through `npx`.
 
 After publication, install the package globally:
 
 ```bash
-npm install -g a2a-mcp
+npm install -g @cognicellai/a2a-mcp
 ```
 
 Or run it without a global install:
 
 ```bash
-npx -y a2a-mcp
+npx -y @cognicellai/a2a-mcp
 ```
 
-Note: `npm view a2a-mcp` currently returns 404 until the package is published. The commands in this guide describe the intended package-based usage from the official npm registry.
+Note: `npm view @cognicellai/a2a-mcp` currently returns 404 until the package is published. The commands in this guide describe the intended package-based usage from the official npm registry. The installed CLI command is still `a2a-mcp`.
 
 Start it manually once to catch configuration errors early:
 
 ```bash
-A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml npx -y a2a-mcp
+A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml npx -y @cognicellai/a2a-mcp
 ```
 
 The process uses stdio, so a successful start usually waits silently for an MCP host to connect.
@@ -192,7 +192,7 @@ For user-delegated OAuth, device-code, PKCE, or refresh-token flows, acquire or 
 The examples below assume:
 
 - config path: `/absolute/path/to/a2a-mcp.config.yaml`
-- server command: `npx -y a2a-mcp` or globally installed `a2a-mcp`
+- server command: `npx -y @cognicellai/a2a-mcp` or globally installed `a2a-mcp`
 
 Replace the config path with your real path.
 
@@ -204,7 +204,7 @@ Codex can add stdio MCP servers with `codex mcp add`, including environment vari
 codex mcp add a2a \
   --env A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml \
   --env A2A_AGENT_API_KEY="$A2A_AGENT_API_KEY" \
-  -- npx -y a2a-mcp
+  -- npx -y @cognicellai/a2a-mcp
 ```
 
 For the machine-to-machine OAuth variant, pass the OAuth client credential environment variables instead:
@@ -214,7 +214,7 @@ codex mcp add a2a \
   --env A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml \
   --env A2A_AGENT_CLIENT_ID="$A2A_AGENT_CLIENT_ID" \
   --env A2A_AGENT_CLIENT_SECRET="$A2A_AGENT_CLIENT_SECRET" \
-  -- npx -y a2a-mcp
+  -- npx -y @cognicellai/a2a-mcp
 ```
 
 You can also configure Codex with `~/.codex/config.toml` or a project `.codex/config.toml`:
@@ -222,7 +222,7 @@ You can also configure Codex with `~/.codex/config.toml` or a project `.codex/co
 ```toml
 [mcp_servers.a2a]
 command = "npx"
-args = ["-y", "a2a-mcp"]
+args = ["-y", "@cognicellai/a2a-mcp"]
 env = { A2A_MCP_CONFIG = "/absolute/path/to/a2a-mcp.config.yaml" }
 ```
 
@@ -236,7 +236,7 @@ Add the server with the Claude Code CLI:
 claude mcp add --transport stdio a2a \
   --env A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml \
   --env A2A_AGENT_API_KEY="$A2A_AGENT_API_KEY" \
-  -- npx -y a2a-mcp
+  -- npx -y @cognicellai/a2a-mcp
 ```
 
 Project-scoped `.mcp.json` example:
@@ -246,7 +246,7 @@ Project-scoped `.mcp.json` example:
   "mcpServers": {
     "a2a": {
       "command": "npx",
-      "args": ["-y", "a2a-mcp"],
+      "args": ["-y", "@cognicellai/a2a-mcp"],
       "env": {
         "A2A_MCP_CONFIG": "/absolute/path/to/a2a-mcp.config.yaml",
         "A2A_AGENT_API_KEY": "${A2A_AGENT_API_KEY}"
@@ -268,7 +268,7 @@ OpenCode local MCP servers use `type: "local"` and a command array.
   "mcp": {
     "a2a": {
       "type": "local",
-      "command": ["npx", "-y", "a2a-mcp"],
+      "command": ["npx", "-y", "@cognicellai/a2a-mcp"],
       "enabled": true,
       "environment": {
         "A2A_MCP_CONFIG": "/absolute/path/to/a2a-mcp.config.yaml",
@@ -301,7 +301,7 @@ Create `.cursor/mcp.json` for a project or `~/.cursor/mcp.json` globally:
     "a2a": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "a2a-mcp"],
+      "args": ["-y", "@cognicellai/a2a-mcp"],
       "env": {
         "A2A_MCP_CONFIG": "/absolute/path/to/a2a-mcp.config.yaml",
         "A2A_AGENT_API_KEY": "${env:A2A_AGENT_API_KEY}"
@@ -321,7 +321,7 @@ Cursor also supports `envFile` for stdio servers, which can be useful for local-
     "a2a": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "a2a-mcp"],
+      "args": ["-y", "@cognicellai/a2a-mcp"],
       "envFile": "/absolute/path/to/.a2a-mcp.env",
       "env": {
         "A2A_MCP_CONFIG": "/absolute/path/to/a2a-mcp.config.yaml"

@@ -1,6 +1,6 @@
 # A2A MCP
 
-`a2a-mcp` is an MCP server that bridges local MCP hosts to A2A v1-compatible agents.
+`@cognicellai/a2a-mcp` is an MCP server that bridges local MCP hosts to A2A v1-compatible agents.
 
 It exposes the A2A v1 client operation surface through MCP tools and routes A2A calls through the official `@a2a-js/sdk` client.
 
@@ -9,18 +9,18 @@ It exposes the A2A v1 client operation surface through MCP tools and routes A2A 
 After the package is published, install it from the official npm registry:
 
 ```bash
-npm install -g a2a-mcp
+npm install -g @cognicellai/a2a-mcp
 ```
 
 Or run it directly with `npx`:
 
 ```bash
-A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml npx -y a2a-mcp
+A2A_MCP_CONFIG=/absolute/path/to/a2a-mcp.config.yaml npx -y @cognicellai/a2a-mcp
 ```
 
 For MCP host setup, see [docs/host-setup.md](./docs/host-setup.md). For end-to-end usage examples covering no-auth, API-key, and machine-to-machine OAuth A2A agents, see [docs/user-guide.md](./docs/user-guide.md).
 
-Note: `npm view a2a-mcp` currently returns 404 until the package is published to the official npm registry. The commands above are the intended package-based install and runtime shape.
+Note: `npm view @cognicellai/a2a-mcp` currently returns 404 until the package is published to the official npm registry. The commands above are the intended package-based install and runtime shape. The installed CLI command is still `a2a-mcp`.
 
 For maintainers preparing a release, see [docs/release.md](./docs/release.md).
 

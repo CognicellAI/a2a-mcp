@@ -1,5 +1,5 @@
 {
-  "name": "a2a-mcp",
+  "name": "@cognicellai/a2a-mcp",
   "version": "0.1.0",
   "description": "MCP server that acts as an A2A v1 client bridge.",
   "license": "MIT",

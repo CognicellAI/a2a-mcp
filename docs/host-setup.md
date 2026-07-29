@@ -1,24 +1,24 @@
 # MCP Host Setup
 
-`a2a-mcp` runs as a local stdio MCP server. Any MCP host that can launch a command with environment variables can use it to reach configured A2A agents.
+`@cognicellai/a2a-mcp` runs as a local stdio MCP server. Any MCP host that can launch a command with environment variables can use it to reach configured A2A agents.
 
 For a fuller walkthrough with no-auth, API-key, and machine-to-machine OAuth examples for Codex, Claude Code, OpenCode, and Cursor, see [A2A MCP User Guide](./user-guide.md).
 
 ## 1. Install the server from npm
 
-After the package is published, install `a2a-mcp` from the official npm registry:
+After the package is published, install `@cognicellai/a2a-mcp` from the official npm registry:
 
 ```bash
-npm install -g a2a-mcp
+npm install -g @cognicellai/a2a-mcp
 ```
 
 You can also let the MCP host run the package through `npx`:
 
 ```bash
-npx -y a2a-mcp
+npx -y @cognicellai/a2a-mcp
 ```
 
-Note: the package name is declared by this project metadata, but `npm view a2a-mcp` currently returns 404 until publication. The examples below show the intended official npm package usage.
+Note: the package name is declared by this project metadata, but `npm view @cognicellai/a2a-mcp` currently returns 404 until publication. The examples below show the intended official npm package usage. The installed CLI command is still `a2a-mcp`.
 
 ## 2. Create a config file
 
@@ -60,7 +60,7 @@ Run from npm with `npx`:
   "mcpServers": {
     "a2a": {
       "command": "npx",
-      "args": ["-y", "a2a-mcp"],
+      "args": ["-y", "@cognicellai/a2a-mcp"],
       "env": {
         "A2A_MCP_CONFIG": "/absolute/path/to/a2a-mcp.config.yaml",
         "A2A_RESEARCH_TOKEN": "set-this-in-your-secret-store-if-supported"
