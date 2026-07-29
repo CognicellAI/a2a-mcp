@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project follows the spirit of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and uses semantic versioning once published.
 
-## 0.1.0 - Unreleased
+## 0.1.1 - 2026-07-29
+
+### Fixed
+
+- Refresh published README and package docs after the initial scoped npm release.
+- Harden release workflow handling for newer npm versions and already-published versions.
+
+## 0.1.0 - 2026-07-29
 
 ### Added
 
