@@ -77,8 +77,8 @@ jobs:
         id: pack
         shell: bash
         run: |
-          npm pack --json --silent > pack.json
-          tarball="$(node -e "const pack = JSON.parse(require('fs').readFileSync('pack.json', 'utf8')); const entry = Array.isArray(pack) ? pack[0] : pack; if (!entry?.filename) throw new Error('npm pack JSON did not include filename'); process.stdout.write(entry.filename)")"
+          tarball="$(npm pack | tail -n 1)"
+          test -f "${tarball}"
           echo "tarball=${tarball}" >> "${GITHUB_OUTPUT}"
 
       - name: Check whether npm version already exists
